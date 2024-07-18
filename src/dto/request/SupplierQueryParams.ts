@@ -1,21 +1,21 @@
 import { IsBoolean, IsOptional, IsPositive, IsString } from "class-validator";
 
-export class CustomerQueryParams {
+export class SupplierQueryParams {
     @IsOptional()
     @IsPositive()
-    customerId?: number;
+    supplierId?: number;
 
     @IsOptional()
     @IsString()
-    customerName?: string;
+    supplierName?: string;
 
     @IsOptional()
     @IsString()
-    cnic?: string;
+    category?: string;
     
 
-    @IsPositive()
-    merchantId: number;
+    // @IsPositive()
+    // merchantId: number;
 
     @IsBoolean()
     paginationEnable:boolean

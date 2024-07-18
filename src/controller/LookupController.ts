@@ -10,10 +10,12 @@ import { OrderPaymentStatusService } from '../service/OrderPaymentStatusService'
 import { OrderStatusService } from '../service/OrderStatusService';
 import { OrderTypeService } from '../service/OrderTypeService';
 import Response from '../common/response/Response';
+import CityService from '../service/CityService';
 
 @JsonController('/lookup')
 export class LookupController {
     private bankService = new BankService();
+    private cityService = new CityService();
     private merchantCategoryService = new MerchantCategoryService();
     private merchantStatusService = new MerchantStatusService();
     private orderPaymentStatusService = new OrderPaymentStatusService();
@@ -26,6 +28,12 @@ export class LookupController {
     @Get('/bank')
     async getBanks() {
         let response = await this.bankService.getAllBanks();
+        return new Response<any>(response);
+    }
+
+    @Get('/city')
+    async getCities() {
+        let response = await this.cityService.getAllCities();
         return new Response<any>(response);
     }
 

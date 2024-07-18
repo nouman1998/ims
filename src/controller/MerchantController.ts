@@ -14,6 +14,7 @@ export default class MerchantController {
     async getMerchants(@QueryParams() queryParams: MerchantQueryParams): Promise<Response<MerchantResponseDto[]>> {
         return await this.merchantService.getMerchantsByCriteria(queryParams.merchantId,
             queryParams.merchantName,
+            queryParams.paginationEnable,
             queryParams.page,
             queryParams.pageSize);
     }

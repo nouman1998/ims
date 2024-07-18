@@ -14,7 +14,7 @@ const conf = convict({
         },
         routingPrefix: {
             format: '*',
-            default: "/api",
+            default: "",
             env: 'CONTEXT_PATH',
         },
     },
@@ -31,7 +31,7 @@ const conf = convict({
         },
         name: {
             format: '*',
-            default: 'installment',
+            default: 'test',
             env: 'DB_NAME',
         },
         username: {
@@ -41,7 +41,7 @@ const conf = convict({
         },
         password: {
             format: '*',
-            default: '12345678',
+            default: '',
             env: 'DB_PASSWORD',
         }
     }

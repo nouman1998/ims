@@ -15,7 +15,7 @@ export function initializeSwagger(app: Application): void {
     const storage = getMetadataArgsStorage()
     const swaggerDoc = routingControllersToSpec(storage, {
         controllers: [path.join(__dirname + '/controller/*.ts')],
-        routePrefix: Config.server.routingPrefix,
+        // routePrefix: Config.server.routingPrefix,
     }, {
         components: {schemas},
         info: {

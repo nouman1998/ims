@@ -18,24 +18,25 @@ export default class MerchantService {
     async getMerchantsByCriteria(
         merchantId: number,
         merchantName: string,
+        paginationEnable:boolean,
         page: number,
         pageSize: number
     ): Promise<Response<any>> {
-        let [data, total] = await this.merchantRepository.findMerchantsByCriteria(merchantId, merchantName, page, pageSize);
+        let [data, total] = await this.merchantRepository.findMerchantsByCriteria(merchantId, merchantName,paginationEnable, page, pageSize);
         let dtos = data.map((merchant: Merchants) => ({
-            merchantId: merchant.merchantId,
-            merchantName: merchant.merchantName,
-            merchantAddress: merchant.merchantAddress,
-            bankId: merchant.bank.bankId,
-            bankName: merchant.bank.bankName,
-            merchantStatusId: merchant.merchantStatus.merchantStatusId,
-            merchantStatus: merchant.merchantStatus.merchantStatus,
-            merchantCategoryId: merchant.merchantCategory.merchantCategoryId,
-            merchantCategory: merchant.merchantCategory.merchantCategoryName,
-            merchantEmail: merchant.merchantEmail,
-            merchantCode: merchant.merchantCode,
-            cityId: merchant.city.cityId,
-            cityName: merchant.city.cityName
+            merchantId: merchant?.merchantId,
+            merchantName: merchant?.merchantName,
+            merchantAddress: merchant?.merchantAddress,
+            bankId: merchant?.bank?.bankId,
+            bankName: merchant?.bank?.bankName,
+            merchantStatusId: merchant?.merchantStatus?.merchantStatusId,
+            merchantStatus: merchant?.merchantStatus?.merchantStatus,
+            merchantCategoryId: merchant?.merchantCategory?.merchantCategoryId,
+            merchantCategory: merchant?.merchantCategory?.merchantCategoryName,
+            merchantEmail: merchant?.merchantEmail,
+            merchantCode: merchant?.merchantCode,
+            cityId: merchant?.city?.cityId,
+            cityName: merchant?.city?.cityName
         }));
 
         let pagination: PageResponse = new PageResponse(pageSize, page, total);

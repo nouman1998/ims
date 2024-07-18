@@ -20,17 +20,17 @@ export default class CustomerService {
         return this.customerRepository.save(customer);
     }
 
-    async getCustomerByCriteria(customerId: number, customerName: string, cnic: string, page: number, pageSize: number) {
-        let [data, count] = await this.customerRepository.getCustomerByCriteria(customerId, customerName, cnic, page, pageSize);
+    async getCustomerByCriteria(customerId: number, customerName: string, cnic: string,paginationEnable:boolean, page: number, pageSize: number) {
+        let [data, count] = await this.customerRepository.getCustomerByCriteria(customerId, customerName, cnic,paginationEnable, page, pageSize);
         let customers: Customer[] = data;
         let customerDtos = customers.map(data => {
             return {
                 customerId: data.customerId,
                 customerName: data.customerName,
-                cityId: data.city.cityId,
-                cityName: data.city.cityName,
-                merchantId: data.merchant.merchantId,
-                merchantName: data.merchant.merchantName,
+                cityId: data.city?.cityId,
+                cityName: data.city?.cityName,
+                merchantId: data.merchant?.merchantId,
+                merchantName: data.merchant?.merchantName,
                 cnic: data.cnic,
                 customerAddress: data.address,
                 profession: data.profession,
@@ -48,6 +48,7 @@ export default class CustomerService {
         customer.city = new City(requestBody.cityId);
         customer.cnic = requestBody.cnic;
         customer.customerName = requestBody.customerName;
+        customer.customerPhone = requestBody.customerPhone;
         customer.merchant = new Merchants(requestBody.merchantId);
         customer.profession = requestBody.profession;
         await this.customerRepository.save(customer);
@@ -63,6 +64,7 @@ export default class CustomerService {
         customer.city = new City(requestBody.cityId);
         customer.cnic = requestBody.cnic;
         customer.customerName = requestBody.customerName;
+        customer.customerPhone = requestBody.customerPhone;
         customer.profession = requestBody.profession;
         await this.customerRepository.save(customer);
         return new Response();

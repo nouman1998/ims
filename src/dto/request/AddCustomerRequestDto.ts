@@ -1,15 +1,15 @@
-import { IsPositive, Min } from "class-validator";
+import { IsPositive, IsString, Min } from "class-validator";
 
 export class AddCustomerRequestDto {
-    @Min(1)
+    @IsString()
     customerName: string;
-    @Min(1)
+    @IsString()
     customerPhone: string;
-    @Min(1)
+    @IsString()
     address: string;
-    @Min(11)
+    @IsString()
     cnic: string;
-    @Min(1)
+    @IsString()
     profession: string;
     @IsPositive()
     cityId: number;
