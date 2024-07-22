@@ -81,4 +81,20 @@ export default class ProductService {
         this.productRepository.save(product);
         return new Response();
     }
+
+    async getAllProduct(
+        productId: number,
+        productName: string,
+        sku: string,
+        merchantId: number,
+    ): Promise<any> {
+        let data = await this.productRepository.findAllProductsByCriteria(productId, productName, sku, merchantId,);
+        let dtos = data.map((product: Products) => ({
+            productId: product.productId,
+            productName: product.productName,
+            sku: product.sku,
+        }));
+        return new Response<any>(dtos);
+
+    }
 }

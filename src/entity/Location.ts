@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Merchants } from './Merchants';
 
 @Entity({ name: 'location' })
@@ -22,6 +22,7 @@ export class Location {
     active: boolean;
 
     @ManyToOne(() => Merchants)
+    @JoinColumn({ name: 'MERCHANT_ID' })
     merchant: Merchants;
 
     constructor(locationId?: number){

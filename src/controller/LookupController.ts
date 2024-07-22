@@ -1,4 +1,4 @@
-import { Get, JsonController } from 'routing-controllers';
+import { Get, JsonController, QueryParams } from 'routing-controllers';
 import ProductService from '../service/ProductService';
 import {PaymentTypeService} from '../service/PaymentTypeService';
 import {UserTypeService} from '../service/UserTypeService';
@@ -11,6 +11,10 @@ import { OrderStatusService } from '../service/OrderStatusService';
 import { OrderTypeService } from '../service/OrderTypeService';
 import Response from '../common/response/Response';
 import CityService from '../service/CityService';
+import { ProductLookupQueryParams, ProductQueryParams } from '../dto/request/ProductQueryParams';
+import { LocationLookupQueryParams } from '../dto/request/LocationQueryParams';
+import LocationService from '../service/LocationService';
+import ProductLocationService from '../service/ProductLocationService';
 
 @JsonController('/lookup')
 export class LookupController {
@@ -24,6 +28,8 @@ export class LookupController {
     private paymentTypeService = new PaymentTypeService();
     private userTypeService = new UserTypeService();
     private productCategoryService = new ProductCategoryService();
+    private productService = new ProductService();
+    private locationService = new LocationService();
 
     @Get('/bank')
     async getBanks() {
@@ -35,6 +41,16 @@ export class LookupController {
     async getCities() {
         let response = await this.cityService.getAllCities();
         return new Response<any>(response);
+    }
+
+    @Get('/product')
+    async getProduct(@QueryParams() queryParams: ProductLookupQueryParams) {
+        return await this.productService.getAllProduct(
+            queryParams.productId,
+            queryParams.productName,
+            queryParams.sku,
+            queryParams.merchantId,
+        );
     }
 
     @Get('/product-category')
@@ -77,6 +93,13 @@ export class LookupController {
     async getPaymentTypes() {
         let response = await this.paymentTypeService.getAllPaymentTypes();
         return new Response<any>(response);
+    }
+
+    @Get('/location')
+    async getLocations(@QueryParams() queryParams: LocationLookupQueryParams) {
+        return await this.locationService.getAllLocations(
+            queryParams.merchantId,
+        );
     }
 
     @Get('/user-type')

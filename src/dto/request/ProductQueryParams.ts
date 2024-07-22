@@ -19,3 +19,18 @@ export class ProductQueryParams {
     @IsPositive()
     page: number
 }
+
+export class ProductLookupQueryParams {
+    @IsOptional()
+    productId?: number;
+
+    @IsOptional()
+    productName?: string;
+
+    @IsOptional()
+    sku?: string;
+
+    @IsPositive()
+    merchantId?: number;
+
+}
