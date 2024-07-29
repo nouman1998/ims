@@ -10,10 +10,13 @@ import { BAD_REQUEST } from "../common/response/StatusCode";
 import { Merchants } from "../entity/Merchants";
 import { Location } from "../entity/Location";
 import ProductLocationService from "./ProductLocationService";
+import { ProductLocationRepository } from "../repository/ProductLocationRepository";
+import { ProductLocation } from "entity/ProductLocation";
 
 export default class ProductService {
 
     private productRepository = ProductRepository;
+    private productLocationRepository = ProductLocationRepository;
     private productLocationService = new ProductLocationService();
 
     async getProductsByCriteria(
@@ -40,6 +43,22 @@ export default class ProductService {
 
         let pagination: PageResponse = new PageResponse(pageSize, page, total);
         return new Response<any>(dtos, pagination);
+    }
+
+    async getProductDetailByCriteria(
+        productId: number,
+        locationId: number,
+    ): Promise<Response<any>> {
+        let [data, total] = await this.productLocationRepository.findProductDetailByCriteria(productId, locationId,);
+        let dtos = data.map((location: ProductLocation) => ({
+          productId:location.product.productId,
+          productName:location.product.productName,
+          locationId:location.location.locationId,
+          locationName:location.location.locationTitle,
+          quantity:location.quantity
+        }));
+
+        return new Response<any>(dtos, null);
     }
 
     async addProduct(productDto: ProductRequestDto): Promise<Response<any>> {

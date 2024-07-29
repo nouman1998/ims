@@ -5,6 +5,7 @@ import { ProductQueryParams } from '../dto/request/ProductQueryParams';
 import Response from '../common/response/Response';
 import { ProductRequestDto } from '../dto/request/ProductRequestDto';
 import { UpdateProductRequestDto } from '../dto/request/UpdateProductRequestDto';
+import { ProductDetailQueryParams } from '../dto/request/ProductDetailQueryParams';
 
 @JsonController('/products')
 export default class ProductController {
@@ -18,6 +19,12 @@ export default class ProductController {
             queryParams.merchantId,
             queryParams.page,
             queryParams.pageSize);
+    }
+
+    @Get('/detail')
+    async getProductDetail(@QueryParams() queryParams: ProductDetailQueryParams): Promise<Response<ProductResponseDto[]>> {
+        return await this.productService.getProductDetailByCriteria(queryParams.productId,
+            queryParams.locationId,);
     }
 
     @Post("/add")

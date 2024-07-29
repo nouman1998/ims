@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsPositive, ValidateNested } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsPositive, IsString, ValidateNested } from "class-validator";
 
 export class OrderMasterRequestDto {
     @IsOptional()
@@ -9,10 +9,10 @@ export class OrderMasterRequestDto {
     @IsPositive()
     orderTypeId: number;
 
-    @IsNotEmpty()
+    @IsString()
     customerName: string;
 
-    @IsNotEmpty()
+    @IsString()
     customerPhone: string;
 
     @IsPositive()
@@ -21,23 +21,24 @@ export class OrderMasterRequestDto {
     @IsPositive()
     supplierId: number;
 
-    @IsNotEmpty()
+    @IsString()
     orderRef: string;
 
     @IsOptional()
+    @IsPositive()
     installmentPlanId: number;
 
     @IsPositive()
     netAmount: number;
 
     @IsOptional()
+    @IsPositive()
     saleAgentId: number;
 
     @IsPositive()
     merchantId: number;
 
-    @ArrayNotEmpty( )
-    
+    @ArrayNotEmpty()
     @ValidateNested({ each: true })
     orderDetails: Array<OrderDetailRequestDto>;
 }
