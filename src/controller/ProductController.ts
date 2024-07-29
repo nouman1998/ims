@@ -35,7 +35,7 @@ export default class ProductController {
     @Put('/update/:productId')
     async updateProduct(
         @Param('productId') productId: number,
-        @Body() updateProductDto: UpdateProductRequestDto,
+        @Body() updateProductDto: ProductRequestDto,
     ): Promise<Response<any>> {
         return this.productService.updateProduct(updateProductDto, productId);
     }

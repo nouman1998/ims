@@ -1,12 +1,12 @@
-import { ArrayNotEmpty, IsOptional, IsPositive, Length, Min } from "class-validator";
+import { ArrayNotEmpty, IsOptional, IsPositive, IsString, Length, Min } from "class-validator";
 import ProductLocationRequestDto from "./ProductLocationRequestDto";
 
 export class ProductRequestDto {
-    @Length(1)
+    @IsString()
     productName: string;
-    @Length(1)
+    @IsString()
     productDetail: string;
-    @Length(1)
+    @IsString()
     sku: string;
     @Min(1)
     salePrice: number;

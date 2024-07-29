@@ -12,6 +12,7 @@ import { Location } from "../entity/Location";
 import ProductLocationService from "./ProductLocationService";
 import { ProductLocationRepository } from "../repository/ProductLocationRepository";
 import { ProductLocation } from "entity/ProductLocation";
+import { StatusCodes } from "http-status-codes";
 
 export default class ProductService {
 
@@ -49,6 +50,10 @@ export default class ProductService {
         productId: number,
         locationId: number,
     ): Promise<Response<any>> {
+        let product = await this.productRepository.fetchById(productId)
+        if (!product) {
+            throw new HttpException(BAD_REQUEST.status, "Invalid Product Id", BAD_REQUEST.detail, BAD_REQUEST.errorCode)
+        }
         let [data, total] = await this.productLocationRepository.findProductDetailByCriteria(productId, locationId,);
         const mainData:any = {
             productId: data[0].product.productId,

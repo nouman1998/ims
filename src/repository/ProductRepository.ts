@@ -2,6 +2,12 @@ import { Products } from "../entity/Products";
 import DatasourceConfig from "../config/DatasourceConfig";
 
 export const ProductRepository = DatasourceConfig.getRepository(Products).extend({
+
+    async fetchById(productId: number) {
+        return this.createQueryBuilder("product")
+            .where("(:productId IS NULL OR product.productId = :productId)", { productId })
+            .getOne()
+    },
   
     async findProductsByCriteria(
         productId: number,
