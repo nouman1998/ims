@@ -8,6 +8,7 @@ export const ProductLocationRepository = DatasourceConfig.getRepository(ProductL
     ): Promise<any> {
         return  this.createQueryBuilder('productLocation')
             .leftJoinAndSelect('productLocation.product', 'product')
+            .leftJoinAndSelect('product.productCategory', 'productCategory')
             .leftJoinAndSelect('productLocation.location', 'location')
             .where('(  product.productId = :productId )', { productId })
             .andWhere('(:locationId IS NULL OR location.locationId = :locationId)', { locationId })

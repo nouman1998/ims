@@ -50,15 +50,23 @@ export default class ProductService {
         locationId: number,
     ): Promise<Response<any>> {
         let [data, total] = await this.productLocationRepository.findProductDetailByCriteria(productId, locationId,);
-        let dtos = data.map((location: ProductLocation) => ({
-          productId:location.product.productId,
-          productName:location.product.productName,
-          locationId:location.location.locationId,
-          locationName:location.location.locationTitle,
-          quantity:location.quantity
+        const mainData:any = {
+            productId: data[0].product.productId,
+                productName: data[0].product.productName,
+                sku: data[0].product.sku,
+                productCategoryId: data[0].product?.productCategory?.productCategoryId,
+                productCategory: data[0].product?.productCategory?.productCategoryName,
+                productDetail: data[0].product?.productDetail,
+                salePrice: data[0].product?.salePrice,
+                purchasePrice: data[0].product?.purchasePrice
+        } 
+        let productLocations = data.map((location: any) => ({
+                locationId: location.location.locationId,
+                locationName: location.location.locationTitle,
+                quantity: location.quantity
         }));
 
-        return new Response<any>(dtos, null);
+            return new Response<any>({...mainData,productLocations}, null);
     }
 
     async addProduct(productDto: ProductRequestDto): Promise<Response<any>> {
