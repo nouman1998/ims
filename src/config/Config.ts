@@ -21,7 +21,7 @@ const conf = convict({
     database: {
         host: {
             format: '*',
-            default: '127.0.0.1',
+            default: '15.184.156.12',
             env: 'DB_HOSTNAME',
         },
         port: {
@@ -31,7 +31,7 @@ const conf = convict({
         },
         name: {
             format: '*',
-            default: 'test',
+            default: 'installment',
             env: 'DB_NAME',
         },
         username: {
@@ -41,7 +41,7 @@ const conf = convict({
         },
         password: {
             format: '*',
-            default: '',
+            default: 'root',
             env: 'DB_PASSWORD',
         }
     }
